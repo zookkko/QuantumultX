@@ -1,3 +1,3 @@
 #网易云解锁VIP直接听
-^http[s]?:\/\/.+music.+(player/url|playlist|entrance|/eapi/search/).*$ url script-request-header https://raw.githubusercontent.com/WeiRen0/Scripts/main/wyun.js
+^http[s]?:\/\/.+music.+(player/url|playlist|entrance|/eapi/search/).*$ url script-request-header https://raw.githubusercontent.com/zookkko/QuantumultX/wyun.js
 hostname = *.music.163.com
