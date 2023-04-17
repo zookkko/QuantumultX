@@ -42,8 +42,8 @@
 
 # ======= G ======= #
 # 高德地图
-HOST, amap-aos-info-nogw.amap.com, REJECT
-HOST, awaken.amap.com, REJECT
-HOST, free-aos-cdn-image.amap.com, REJECT
+amap-aos-info-nogw.amap.com, url reject-dict
+awaken.amap.com, url reject-dict
+free-aos-cdn-image.amap.com, url reject-dict
 
 hostname = m5.amap.com, m5-zb.amap.com, mps.amap.com, sns.amap.com
