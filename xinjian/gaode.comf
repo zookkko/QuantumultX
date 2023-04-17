@@ -40,4 +40,10 @@
 ^https:\/\/m5-zb\.amap\.com\/ws\/promotion-web\/resource\?? url script-response-body https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
 ^https:\/\/m5-zb\.amap\.com\/ws\/sharedtrip\/taxi\/order_detail_car_tips\? url script-response-body https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/amap.js
 
+# ======= G ======= #
+# 高德地图
+HOST, amap-aos-info-nogw.amap.com, REJECT
+HOST, awaken.amap.com, REJECT
+HOST, free-aos-cdn-image.amap.com, REJECT
+
 hostname = m5.amap.com, m5-zb.amap.com, mps.amap.com, sns.amap.com
