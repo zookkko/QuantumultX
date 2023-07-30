@@ -1,95 +1,19 @@
-// ==UserScript==
+/***********************************************
+> 应用名称：墨鱼自用高德地图去广告脚本
+> 脚本作者：@ddgksf2013
+> 微信账号：墨鱼手记
+> 更新时间：2022-07-14
+> 通知频道：https://t.me/ddgksf2021
+> 贡献投稿：https://t.me/ddgksf2013_bot
+> 问题反馈：ddgksf2013@163.com
+> 特别提醒：如需转载请注明出处，谢谢合作！
+***********************************************/	
 
-// @ScriptName        高德地图净化[墨鱼版]
 
-// @Author            @ddgksf2013
 
-// @ForHelp           若有屏蔽广告的需求，可公众号后台回复APP名称
 
-// @WechatID          公众号墨鱼手记
 
-// @TgChannel         https://t.me/ddgksf2021
+const version = 'V1.0.29';
 
-// @Contribute        https://t.me/ddgksf2013_bot
 
-// @Feedback          📮 ddgksf2013@163.com 📮
-
-// @UpdateTime        2023-04-25
-
-// @Suitable          自行观看“# > ”注释内容
-
-// @Attention         使用前请卸载高德地图，挂载脚本然后使用
-
-// @Attention         如需引用请注明出处，谢谢合作！
-
-// @Version           V1.0.22
-
-// @ScriptURL         https://github.com/ddgksf2013/Rewrite/raw/master/AdBlock/Amap.conf
-
-// ==/UserScript==
-
-hostname=*.amap.com
-
-# > 高德地图_amdc处理[Anti已将Amdc分流删除,故更换屏蔽策略]@ddgksf2013
-
-^http:\/\/amdc\.m\.taobao\.com url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/amdc.js
-
-# > 高德地图_底部tab栏角标@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/message\/notice\/list url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/amap.js
-
-# > 高德地图_路线规划下方广告@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/faas\/amap-navigation\/card-service-route-plan\? url reject-dict
-
-# > 高德地图_首页右中广告@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/amap.js
-
-# > 高德地图_附近页面@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/shield\/search\/nearbyrec_smart url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/amap.js
-
-# > 高德地图_打车页面处理@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/promotion-web\/resource url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/amap.js
-
-# > 高德地图_Tip请求@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/boss\/order_web\/\w{8}_information url reject-200
-
-# > 高德地图_首页底部处理@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/faas\/amap-navigation\/main-page url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/amap.js
-
-# > 高德地图_通用广告请求@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/asa\/ads_attribution url reject
-
-# > 高德地图_开屏广告@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/valueadded\/alimama\/splash_screen url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/amap.js
-
-# > 高德地图_首页顶部推广@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/msgbox\/pull url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/amap.js
-
-# > 高德地图_我的页面@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/shield\/dsp\/profile\/index\/nodefaas url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/amap.js
-
-# > 高德地图_搜索框热词@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/shield\/search\/new_hotword url script-response-body https://github.com/ddgksf2013/Scripts/raw/master/amap.js
-
-# > 高德地图_搜索框scene@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/shield\/scene\/recommend url reject-dict
-
-# > 高德地图_首页左上角gif@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/uploadimg\/\w+\.gif url reject-img
-
-# > 高德地图_左下天气@ddgksf2013
-
-^https?:\/\/.*\.amap\.com\/ws\/valueadded\/weather url reject-dict
+var obj=JSON.parse($response.body);if(-1!=$request.url.indexOf("valueadded/alimama/splash_screen")){if(obj.data&&obj.data.ad)for(let a of obj.data.ad)a.set.setting.display_time=0,a.creative[0].start_time=2240150400,a.creative[0].end_time=2240150400;$done({body:JSON.stringify(obj)})}else if(-1!=$request.url.indexOf("faas/amap-navigation/main-page"))obj.data?.cardList&&(obj.data.cardList=Object.values(obj.data.cardList).filter(a=>"LoginCard"==a.dataType||"FrequentLocation"==a.dataType)),obj.data?.pull3?.msgs&&(obj.data.pull3.msgs=[]),obj.data?.business_position&&(obj.data.business_position=[]),obj.data?.mapBizList&&(obj.data.mapBizList=[]),$done({body:JSON.stringify(obj)});else if(-1!=$request.url.indexOf("profile/index/node"))delete obj.data.tipData,obj.data?.cardList&&(obj.data.cardList=Object.values(obj.data.cardList).filter(a=>"MyOrderCard"==a.dataType||"GdRecommendCard"==a.dataType)),$done({body:JSON.stringify(obj)});else if(-1!=$request.url.indexOf("new_hotword"))obj.data?.header_hotword&&(obj.data.header_hotword=[]),$done({body:JSON.stringify(obj)});else if(-1!=$request.url.indexOf("ws/promotion-web/resource")){let e=["icon","banner","tips","popup","bubble"];for(let o of e)obj.data?.[o]&&(obj.data[o]=[]);$done({body:JSON.stringify(obj)})}else if(-1!=$request.url.indexOf("ws/msgbox/pull"))obj.msgs&&(obj.msgs=[]),obj.pull3?.msgs&&(obj.pull3.msgs=[]),$done({body:JSON.stringify(obj)});else if(-1!=$request.url.indexOf("ws/message/notice/list"))obj.data?.noticeList&&(obj.data.noticeList=[]),$done({body:JSON.stringify(obj)});else if(-1!=$request.url.indexOf("ws/shield/frogserver/aocs")){for(let t of["gd_notch_logo","home_business_position_config","his_input_tip","operation_layer"])obj.data?.[t]&&(obj.data[t]={status:1,version:"",value:""});$done({body:JSON.stringify(obj)})}else if(-1!=$request.url.indexOf("search/nearbyrec_smart")){let i=["coupon","scene","activity","commodity_rec"];obj.data&&(i.forEach(a=>{delete obj.data[a]}),obj.data.modules&&(obj.data.modules=obj.data.modules.filter(a=>!i.includes(a)))),$done({body:JSON.stringify(obj)})}else $done({});
