@@ -21,7 +21,7 @@
 // 4、进入【设置】，然后点击【账号页管理】，进入后可关闭趣测、云村有票、商城、Beat专区等等Tab
 
 
-hostname = interface*.music.163.com 
+hostname = interface*.music.163.com 
 
 # > 网易云_评论弹窗
 ^https?:\/\/interface(\d)?\.music\.163\.com\/w?e?api\/music\/partner\/picked\/user\/top url reject-dict
@@ -58,4 +58,6 @@ hostname = interface*.music.163.com 
 # > 网易云_活动推广
 ^https?:\/\/interface(\d)?\.music\.163\.com\/w?e?api\/resource-exposure\/activity\/config url reject-dict
 # > 网易云_VIP歌曲提醒框
-^https?:\/\/interface(\d)?\.music\.163\.com\/w?e?api\/vipcenter/tspopup\/get url r
+^https?:\/\/interface(\d)?\.music\.163\.com\/w?e?api\/vipcenter/tspopup\/get url reject-dict
+# > 网易云_搜索页下方热搜Card[自行启用]
+; ^https?:\/\/interface(\d)?\.music\.163\.com\/w?e?api\/search\/chart url reject-dict
